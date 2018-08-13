@@ -8,6 +8,21 @@ There exists many Python packages such as [PIL](http://www.pythonware.com/produc
 is an excellent module for reading TIFF as well as LSM files,
 it is as fast as libtiff.py by using numpy.
 
+# Build Status
+
+|      | Linux                                        | macOS                                        | Windows                                      |
+|------|----------------------------------------------|----------------------------------------------|----------------------------------------------|
+| PyPI | [![CircleCI][circleci_image]][circleci_link] | [![TravisCI][travisci_image]][travisci_link] | [![AppVeyor][appveyor_image]][appveyor_link] |
+
+[circleci_link]: https://circleci.com/gh/amueller/word_cloud/tree/master
+[circleci_image]: https://circleci.com/gh/amueller/word_cloud/tree/master.svg?style=svg
+
+[travisci_link]: https://travis-ci.org/amueller/word_cloud
+[travisci_image]: https://travis-ci.org/amueller/word_cloud.svg?branch=master
+
+[appveyor_link]: https://ci.appveyor.com/project/amueller/word-cloud/branch/master
+[appveyor_image]: https://img.shields.io/appveyor/ci/amueller/word-cloud/master.svg
+
 
 # Usage example (libtiff wrapper) #
 
