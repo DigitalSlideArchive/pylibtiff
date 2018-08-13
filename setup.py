@@ -64,30 +64,30 @@ print(version)
         a.close()
 
 
-def configuration(parent_package='', top_path=None):
-    from numpy.distutils.misc_util import Configuration
-    config = Configuration(None, parent_package, top_path)
-    config.add_subpackage('libtiff')
-    config.get_version('libtiff/version.py')
-    config.add_data_files(('libtiff', 'LICENSE'))
-    return config
-
-
 if __name__ == '__main__':
-    from numpy.distutils.core import setup, Extension
+    from setuptools import setup, Extension
+    import numpy as np
+    import subprocess
+    import sys
 
-    bittools_mod = Extension('bittools',
-                             sources=['libtiff/src/bittools.c'])
-    tif_lzw_mod = Extension('tif_lzw',
-                            sources=['libtiff/src/tif_lzw.c'])
+    bittools_mod = Extension('libtiff.bittools',
+                             sources=['libtiff/src/bittools.c'],
+                             include_dirs=[np.get_include()])
+    tif_lzw_mod = Extension('libtiff.tif_lzw',
+                            sources=['libtiff/src/tif_lzw.c'],
+                            include_dirs=[np.get_include()])
 
     # Rewrite the version file everytime
     if os.path.exists('libtiff/version.py'):
         os.remove('libtiff/version.py')
     write_version_py()
 
+    version_string=subprocess.check_output([sys.executable, 'libtiff/version.py'])
+    if sys.version_info > (3, 0):
+        version_string = version_string.decode()
+
     setup(name='libtiff',
-          # version='0.3-svn',
+          version=version_string,
           author='Pearu Peterson',
           author_email='pearu.peterson@gmail.com',
           license='https://github.com/pearu/pylibtiff/blob/master/LICENSE',
@@ -102,8 +102,8 @@ PyLibTiff? is a Python package that provides the following modules:
    tiff - a numpy.memmap view of tiff files.
 ''',
           platforms=["All"],
-          # packages = ['libtiff'],
-          # package_dir = {'libtiff': 'libtiff'},
-          configuration=configuration,
-          ext_modules=[bittools_mod, tif_lzw_mod], requires=['numpy']
+          packages = ['libtiff'],
+          package_dir = {'libtiff': 'libtiff'},
+          ext_modules=[bittools_mod, tif_lzw_mod],
+          requires=['numpy']
           )
