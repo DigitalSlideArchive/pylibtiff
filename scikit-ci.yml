@@ -11,10 +11,14 @@ before_install:
 
   appveyor:
     environment:
-      PATH: $<PYTHON_DIR>;$<PYTHON_DIR>\\Scripts;$<PATH>
+      PATH: $<PYTHON_DIR>;$<PYTHON_DIR>\\Scripts;$<APPVEYOR_BUILD_FOLDER>\\..\\libtiff-install;$<PATH>
       RUN_ENV: .\\..\\addons\\appveyor\\run-with-visual-studio.cmd
     commands:
       - python ../addons/appveyor/patch_vs2008.py
+    commands:
+      - |
+        cd $<APPVEYOR_BUILD_FOLDER>\\..\\
+        cmake -P $<APPVEYOR_BUILD_FOLDER>\\scripts\\download-and-build-libtiff.cmake
 
   circle:
     environment:
