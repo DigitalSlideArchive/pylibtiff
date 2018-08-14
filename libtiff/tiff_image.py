@@ -4,6 +4,7 @@ Provides TIFFimage class.
 # Author: Pearu Peterson
 # Created: June 2010
 
+from __future__ import division
 
 import os
 import sys
